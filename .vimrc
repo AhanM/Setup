@@ -16,7 +16,10 @@ set shiftwidth=2
 set expandtab 
 
 " Tells vim to use c-style indenting 
-set cindent 
+set cindent
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
 " Highlights characters exceeding 80
 match Error /\%81v.\+/
@@ -32,7 +35,21 @@ inoremap PFSI private final static  int
 inoremap PV private void
 inoremap syso System.out.println();<esc>hi
 inoremap PSVM private static void main(String[] args)
-inoremap /** /**<S-Enter>* <S-Enter>*/<Esc>kli
+inoremap /** /**<S-Enter><BACKSPACE>* <S-Enter>*/<Esc>kli
 inoremap // //
 
+" To create a javadoc comment above the current line
+nnoremap Zc O/**<CR><BS>*<CR>*/<UP><SPACE>
+
 inoremap <C-D> <Esc>Vypi<end>
+
+" Type in jk while in insert mode to escape insert mode
+inoremap jk <ESC>
+
+" Additional colorschemes
+" colorscheme base16-default-dark
+
+" Pathogen execution
+execute pathogen#infect()
+execute pathogen#helptags()
+filetype plugin indent on
