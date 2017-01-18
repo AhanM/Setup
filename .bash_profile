@@ -24,3 +24,4 @@ eval `gdircolors ~/.dir_colors`
 alias ls="gls --color=auto"
 alias ll="gls --color=auto -lh"
 alias la="gls --color=auto -a"
+export PATH=/Users/Ahan/.pyenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/Ahan/bin
