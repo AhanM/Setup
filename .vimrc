@@ -42,8 +42,9 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_java_javac_config_file_enabled = 1
+
 
 " This does what it says on the tin. It will check your file on open too, not
 " just on save.
@@ -58,6 +59,7 @@ Plugin 'Valloric/YouCompleteMe'
 " so these should tidy it up a bit for you.
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
+let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
 set completeopt-=preview
 
 " Automatic Python Jedi completion
@@ -74,7 +76,8 @@ filetype plugin indent on    " required
 " filetype plugin on
 
 " This wraps lines at 80 characters 
-set textwidth=80 
+set textwidth=80
+set colorcolumn=80
 
 " Line numbers
 set number
@@ -109,3 +112,35 @@ autocmd VimEnter * wincmd p
 
 " Airline theme
 " let g:airline_theme='term'
+
+
+" C File Header auto generation
+function FileHeading()
+  let s:line=line(".")
+  call setline(s:line,   "/**")
+  call append (s:line, " * Author: <your name goes here>")
+  call append (s:line+1, " * Userid: <replace with yoru pid>")
+  call append (s:line+2, " * Login: cs12s<replace with your login>")
+  call append (s:line+3, " * Date: ")
+  call append (s:line+4, " * Filename: " .expand("%"))
+  call append (s:line+5, " * Description: ")
+  call append (s:line+6, " */")
+  unlet s:line
+endfunction
+
+imap <F4> <ESC>mz:execute FileHeading()<CR>`z4jA`
+
+if has('mac') && ($TERM == 'xterm-256color' || $TERM == 'screen-256color')
+  map <Esc>OP <F1>
+  map <Esc>OQ <F2>
+  map <Esc>OR <F3>
+  map <Esc>OS <F4>
+  map <Esc>[16~ <F5>
+  map <Esc>[17~ <F6>
+  map <Esc>[18~ <F7>
+  map <Esc>[19~ <F8>
+  map <Esc>[20~ <F9>
+  map <Esc>[21~ <F10>
+  map <Esc>[23~ <F11>
+  map <Esc>[24~ <F12>
+endif
