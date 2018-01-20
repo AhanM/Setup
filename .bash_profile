@@ -1,5 +1,11 @@
 # Virtualenv/VirtualenvWrapper
-source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME=$HOME/code/.virtualenvs
+export PROJECT_HOME=$HOME/code
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+
+#source /usr/local/bin/virtualenvwrapper.sh
 
 # To solve the UTF-8 ValueError
 export LC_ALL=en_US.UTF-8
@@ -8,9 +14,9 @@ export LANG=en_US.UTF-8
 # Matplotlib Virtualenv work around
 function frameworkpython {
   if [[ ! -z "$VIRTUAL_ENV" ]]; then
-    PYTHONHOME=$VIRTUAL_ENV /usr/local/bin/python "$@"
+    PYTHONHOME=$VIRTUAL_ENV /usr/bin/python "$@"
   else
-    /usr/local/bin/python "$@"
+    /usr/bin/python "$@"
   fi
 }
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
@@ -20,12 +26,13 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
-alias ls='ls -GFah'
-alias ll='ls -l'
+alias ls='ls -GF'
+alias la='ls -a'
 alias ddu='sh ~/Dropbox/Development/Themes\
   WordPress/dobsondev-underscores/ddunderscores-osx.sh'
 alias 'rm'='rm -i'
 alias 'rm'='rm -rf -i'
+alias 'vimcs'='vim -p {*.cpp,*.h}'
 
 # bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
@@ -59,7 +66,7 @@ function prompt {
   local WHITEBOLD="\[\033[1;37m\]"
   local RESETCOLOR="\[\e[00m\]"
 
-  export PS1="$REDBOLD\u$CYAN@$GREENBOLD\w$PURPLEBOLD"'$(__git_ps1 "(%s)")'" $CYANBOLD>> $RESETCOLOR"
+  export PS1="$REDBOLD\u$CYAN@$GREENBOLD\W$PURPLEBOLD"'$(__git_ps1 "(%s)")'" $CYANBOLD>> $RESETCOLOR"
   export PS2="$PURPLE | ➝ $RESETCOLOR"
 }
 
@@ -71,5 +78,8 @@ prompt
 PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
 export PATH
 
+# NodeJS and NPM
+export NODE_PATH='/usr/local/lib/node_modules'
+
 # added by Anaconda2 4.3.0 installer
-export PATH="/Users/Ahan/anaconda2/bin:$PATH"
+#export PATH="/Users/Ahan/anaconda2/bin:$PATH"
